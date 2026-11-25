@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Disclaimer et tests</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 800px; margin: 30px auto; padding: 0 15px; }
+  .disclaimer { background: #fff3cd; border: 2px solid #e0a800; color: #664d03;
+                padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid #999; padding: 8px; text-align: center; }
+  th { background: #0d6efd; color: white; }
+  .ok { color: green; font-weight: bold; }
+  .ko { color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="disclaimer">⚠️ Ne remplace pas un avis médical. Consultez toujours un médecin.</div>
+
+<h2>Recherche par symptôme</h2>
+<input id="symptome" placeholder="Ex : fièvre">
+<button onclick="afficher()">Rechercher</button>
+<p id="resultat"></p>
+
+<h2>Tableau de tests</h2>
+<table>
+  <thead>
+    <tr><th>N°</th><th>Symptôme saisi</th><th>Résultat attendu</th><th>Résultat obtenu</th><th>Statut</th></tr>
+  </thead>
+  <tbody id="tests"></tbody>
+</table>
+
+<script>
+  // Mini base de données (remplace par la tienne)
+  const base = [
+    { symptome: "fièvre",  maladie: "Grippe",   medicament: "Paracétamol" },
+    { symptome: "toux",    maladie: "Rhume",    medicament: "Sirop antitussif" },
+    { symptome: "migraine",maladie: "Migraine", medicament: "Ibuprofène" }
+  ];
+
+  function chercher(s) {
+    const r = base.find(x => x.symptome === s.trim().toLowerCase());
+    return r ? r.medicament : "Aucun résultat";
+  }
+
+  function afficher() {
+    const s = document.getElementById("symptome").value;
+    document.getElementById("resultat").innerText = "Médicament : " + chercher(s);
+  }
+
+  // 3 tests automatiques
+  const tests = [
+    { entree: "fièvre",   attendu: "Paracétamol" },
+    { entree: "toux",     attendu: "Sirop antitussif" },
+    { entree: "migraine", attendu: "Ibuprofène" }
+  ];
+
+  const tbody = document.getElementById("tests");
+  tests.forEach((t, i) => {
+    const obtenu = chercher(t.entree);
+    const ok = obtenu === t.attendu;
+    tbody.innerHTML += `<tr>
+      <td>${i + 1}</td><td>${t.entree}</td><td>${t.attendu}</td><td>${obtenu}</td>
+      <td class="${ok ? 'ok' : 'ko'}">${ok ? '✅ Réussi' : '❌ Échec'}</td></tr>`;
+  });
+</script>
+</body>
+</html>

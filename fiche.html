@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Fiche médicament</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 700px; margin: 30px auto; padding: 0 15px; }
+  .fiche { border: 1px solid #ccc; border-radius: 8px; padding: 20px; }
+  h1 { color: #0d6efd; margin-top: 0; }
+  .label { font-weight: bold; }
+  .alerte { background: #f8d7da; border: 2px solid #dc3545; color: #842029;
+            padding: 12px; border-radius: 8px; font-weight: bold; margin: 15px 0; }
+  .retour { display: inline-block; margin-top: 15px; padding: 8px 16px;
+            background: #0d6efd; color: white; text-decoration: none; border-radius: 6px; }
+  .disclaimer { background: #fff3cd; border: 2px solid #e0a800; color: #664d03;
+                padding: 10px; border-radius: 8px; text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="fiche">
+  <h1 id="nom"></h1>
+  <p><span class="label">Indication :</span> <span id="indication"></span></p>
+  <p><span class="label">Posologie :</span> <span id="posologie"></span></p>
+  <div class="alerte">🚫 Contre-indications : <span id="contre"></span></div>
+  <a class="retour" href="index.html">← Retour</a>
+</div>
+
+<div class="disclaimer">⚠️ Ne remplace pas un avis médical.</div>
+
+<script>
+  const medicaments = {
+    "paracetamol": {
+      nom: "Paracétamol",
+      indication: "Fièvre et douleurs légères",
+      posologie: "Adulte : 500 mg à 1 g par prise, max 3 g par jour",
+      contre: "Allergie au paracétamol, insuffisance hépatique grave"
+    },
+    "ibuprofene": {
+      nom: "Ibuprofène",
+      indication: "Migraine, douleurs, inflammation",
+      posologie: "Adulte : 200 à 400 mg par prise, pendant les repas",
+      contre: "Ulcère de l'estomac, grossesse (3e trimestre), allergie aux AINS"
+    }
+  };
+
+  // Change "paracetamol" par "ibuprofene" pour tester l'autre
+  const m = medicaments["paracetamol"];
+  document.getElementById("nom").innerText = m.nom;
+  document.getElementById("indication").innerText = m.indication;
+  document.getElementById("posologie").innerText = m.posologie;
+  document.getElementById("contre").innerText = m.contre;
+</script>
+</body>
+</html>
